@@ -18,7 +18,9 @@ export default class ScriptMetadata {
       return filename.endsWith(FILE_EXTENSION) && !filename.startsWith('common');
     });
     let filenamesAsVersionNumbers = _.map(filenamesWithCorrectExtension, (filename) => {
-      return filename.replace(FILE_EXTENSION, '');
+      return filename
+        .replace(FILE_EXTENSION, '')
+        .replace(/_.*/, '')
     });
     let filteredVersionNumbers = _.filter(filenamesAsVersionNumbers, (versionNumber) => {
       return _.isUndefined(currentVersionNumber) || semver.gt(versionNumber, currentVersionNumber);
